@@ -12,3 +12,6 @@
 /captures
 .externalNativeBuild
 .cxx
+
+# Sender credentials (copy email.properties.example to email.properties)
+/email.properties

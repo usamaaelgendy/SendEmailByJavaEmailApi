@@ -1,5 +1,12 @@
 apply plugin: 'com.android.application'
 
+// Sender credentials come from email.properties (git-ignored), never from source.
+def emailProps = new Properties()
+def emailPropsFile = rootProject.file('email.properties')
+if (emailPropsFile.exists()) {
+    emailPropsFile.withInputStream { emailProps.load(it) }
+}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -12,6 +19,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "SENDER_EMAIL", "\"${emailProps.getProperty('SENDER_EMAIL', '')}\""
+        buildConfigField "String", "SENDER_APP_PASSWORD", "\"${emailProps.getProperty('SENDER_APP_PASSWORD', '')}\""
     }
 
     buildTypes {

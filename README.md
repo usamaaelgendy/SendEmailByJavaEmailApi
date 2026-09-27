@@ -20,6 +20,30 @@ Choose Generate.
 Follow the instructions to enter the App Password. The App Password is the 16-character code in the yellow bar on your device.
 Choose Done.
 
+## Configure your sender account (no credentials in the code)
+
+The app reads the sender address and App Password at build time from a local
+`email.properties` file that is git-ignored, so your credentials never end up in the repository.
+
+1. Copy the example file in the project root:
+
+   ```
+   cp email.properties.example email.properties
+   ```
+
+2. Put your own values in `email.properties`:
+
+   ```
+   SENDER_EMAIL=your.address@gmail.com
+   SENDER_APP_PASSWORD=your-16-char-app-password
+   ```
+
+3. Sync Gradle and run the app. `Utils.EMAIL` / `Utils.PASSWORD` are filled from
+   `BuildConfig.SENDER_EMAIL` / `BuildConfig.SENDER_APP_PASSWORD`.
+
+Never commit `email.properties`. If an App Password is ever exposed, revoke it from your
+Google Account (Security → App Passwords) and create a new one.
+
 
 
 source code on gitHub :
